@@ -30,6 +30,21 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "MyDatab
         // Here you can upgrade tables, as usual
         db.dropTable("User", true)
     }
+
+    fun getAll(): ArrayList<Entity>{
+        val a = ArrayList<Entity>()
+        readableDatabase
+        use{
+            select("Customer",
+                "name",
+                "login",
+                "pass").exec {
+                while (moveToNext())
+                    a.add(Entity(getString(0), getString(1), getString(2)))
+            }
+        }
+        return a
+    }
 }
 
 // Access property for Context

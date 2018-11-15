@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
-
     }
 
 
@@ -78,14 +77,15 @@ class MainActivity : AppCompatActivity() {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return when(position){
-                0 ->{ DBFragment.newInstance(position + 1) }
-                else ->{ PlaceholderFragment.newInstance(position + 1) }
+                0 ->{ DBFragment() }
+                1 ->{ PlaceholderFragment() }
+                else ->{ PlaceholderFragment() }
             }
         }
 
         override fun getCount(): Int {
             // Show 3 total pages.
-            return 3
+            return 2
         }
     }
 

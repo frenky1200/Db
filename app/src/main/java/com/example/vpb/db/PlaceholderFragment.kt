@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.cursoradapter.widget.CursorAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.vpb.db.MyApp.Companion.db
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class PlaceholderFragment : androidx.fragment.app.Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    lateinit var adapter: MyAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
-        rootView.section_label.text = getString(R.string.section_format, arguments?.getInt(ARG_SECTION_NUMBER))
+        adapter = MyAdapter(db.getAll())
+        rootView.rView.layoutManager = LinearLayoutManager(this.context)
+        rootView.rView.adapter = adapter
+
         return rootView
     }
 
